@@ -34,7 +34,7 @@
 <body>
     <div>
         <textarea></textarea><br/>
-        <input type="button" value="제출" />
+        <input type="button" value="전송" />
     </div>
     <script>
         $(function(){
@@ -44,8 +44,9 @@
                 var arr = [];
 
                 $.each(split, function(idx, data){
-                    var nick = $.trim(data.match(/\[.*\]/)[0]);
-                    var num = $.trim(data.split(nick)[1]);
+                    var value = data.split('/');
+                    var nick = $.trim(value[0]);
+                    var num = $.trim(value[1]);
                     var numArr = num.split(',');
 
                     nick = nick.substring(1, nick.length - 1);
@@ -64,7 +65,11 @@
                 var str = '';
 
                 $.each(arr, function(idx, data){
-                    str += (idx+1)+'번 : '+(data.join(', '))+'<br/>';
+                    if (typeof data === 'undefined') {
+                        str += (idx+1)+'번 : <br/>';
+                    } else {
+                        str += (idx+1)+'번 : '+(data.join(', '))+'<br/>';
+                    }
                 });
 
                 $('body').html('<p>'+str+'</p>');
